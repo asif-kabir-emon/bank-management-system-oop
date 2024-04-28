@@ -2,15 +2,9 @@ from user import User
 from bank import Bank
 
 class Admin:
-    def __init__(self):
-        self.__users = []
-        self.loan_feature = True
-    
-    def create_user(self, bank, name, email, address, account_type):
-        account_number = bank.generate_account_number()
-        user = User(name, email, address, account_type, account_number)
-        Bank.add_new_user(bank, user)
-        print(f"Account created successfully. Account number: {account_number}")
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
         
     def delete_user(self, Bank, account_number):
         Bank.delete_user(account_number)

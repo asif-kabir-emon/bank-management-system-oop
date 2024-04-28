@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from user import User
 
 class Bank:
     def __init__(self, name):
@@ -6,6 +6,7 @@ class Bank:
         self.__users = []
         self.__loans = {}
         self.__loan_feature = True
+        self.__is_bankrupt = False
     
     def generate_account_number(self):
         account_number = 1000000000 + len(self.__users) + 1
@@ -13,6 +14,13 @@ class Bank:
     
     def add_new_user(self, user):
         self.__users.append(user)
+        
+    def create_user(self, name, email, address, account_type):
+        account_number = self.generate_account_number()
+        user = User(name, email, address, account_type, account_number)
+        self.add_new_user(user)
+        print(f"Account created successfully. Account number: {account_number}")
+        return user
     
     def delete_user(self, account_number):
         for user in self.__users:
@@ -23,9 +31,12 @@ class Bank:
         print("Account not found")
     
     def view_users(self):
-        for user in self.__users:
-            print(f"---- Account number: {user.account_number} ----")
-            print(f"Name: {user.name} \nAccount number: {user.account_number} \nAccount type: {user.account_type} \nBalance: {user.check_balance()} \nEmail: {user.email} \nAddress: {user.address}")
+        if len(self.__users) == 0:
+            print("No User Account!!!")
+        else:
+            for user in self.__users:
+                print(f"---- Account number: {user.account_number} ----")
+                print(f"Name: {user.name} \nAccount number: {user.account_number} \nAccount type: {user.account_type} \nBalance: {user.check_balance()} \nEmail: {user.email} \nAddress: {user.address}")
     
     def total_available_balance(self):
         total = 0
@@ -55,6 +66,16 @@ class Bank:
     
     def check_loan_feature(self):
         return self.__loan_feature
+    
+    def check_bankruptcy(self):
+        return self.__is_bankrupt
+    
+    def change_bankruptcy_status(self):
+        self.__is_bankrupt = not self.__is_bankrupt
+        if self.__is_bankrupt:
+            print("Bank is now bankrupt")
+        else:
+            print("Bank is now out of bankruptcy")
     
     def request_loan(self, user, amount):
         if self.__loan_feature:
