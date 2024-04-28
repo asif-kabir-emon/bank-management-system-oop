@@ -2,9 +2,8 @@ from user import User
 from bank import Bank
 
 class Admin:
-    def __init__(self, name, email):
+    def __init__(self, name):
         self.name = name
-        self.email = email
         
     def delete_user(self, Bank, account_number):
         Bank.delete_user(account_number)

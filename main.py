@@ -126,9 +126,12 @@ while True:
     
     elif choice == 3:
         name = input("Enter name: ")
-        email = input("Enter email: ")
-        admin = Admin(name, email)
-        Admin_Access(admin)
+        password = input("Enter password: ")
+        admin = Admin(name)
+        if name.lower() == "admin" and password == "123":
+            Admin_Access(admin)
+        else:
+            print("Invalid credentials!!!")
             
     elif choice == 4:
         break
